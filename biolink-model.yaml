@@ -1490,7 +1490,7 @@ slots:
   ## PREDICATES/RELATIONS
   ## --------------------
 
-  related to:
+  is related to:
     description: >-
       A relationship that is asserted between two named things
     domain: named thing
@@ -1616,16 +1616,16 @@ slots:
       - UMLS:mapped_to
       - UMLS:owning_section_of
 
-  related to at concept level:
-    is_a: related to
+  is related at concept level to:
+    is_a: is related to
     description: >-
       Represents a relationship held between terminology components that describe the conceptual model of a domain.
     annotations:
       canonical_predicate: true
     symmetric: true
 
-  related to at instance level:
-    is_a: related to
+  is related at instance level to:
+    is_a: is related to
     description: >-
       Represents a relationship held between two instances of a data classes.  Much like an assertion component,
       in an ABox, these represent facts associated with the conceptual model.
@@ -1633,12 +1633,12 @@ slots:
       canonical_predicate: true
     symmetric: true
 
-  associated with:
-    is_a: related to at instance level
+  is associated with:
+    is_a: is related at instance level to
     description: >-
       Expresses a relationship between two named things where the relationship is typically generated statistically
-      (though not in all cases), and is weaker than its child, 'correlated with', but stronger than its parent,
-      'related to'. This relationship holds between two concepts represented by variables for which a statistical 
+      (though not in all cases), and is weaker than its child, 'is correlated with', but stronger than its parent,
+      'is related to'. This relationship holds between two concepts represented by variables for which a statistical 
       dependence is demonstrated.  E.g. the statement “Atrial Fibrillation (Afib) is associated with Myocardial 
       Infarction (MI)” asserts that having Afib is not statistically independent from whether a patient 
       will also have MI. Note that in Translator associations, the subject and object concepts may map exactly to 
@@ -1653,8 +1653,8 @@ slots:
       - RO:0004029
       - SNOMEDCT:47429007
 
-  superclass of:
-    is_a: related to at concept level
+  is superclass of:
+    is_a: is related at concept level to
     description: >-
       holds between two classes where the domain class is a super class of the range class
     domain: ontology class
@@ -1677,8 +1677,8 @@ slots:
       - SNOMED:has_basic_dose_form
       - UMLS:RB
 
-  subclass of:
-    is_a: related to at concept level
+  is subclass of:
+    is_a: is related at concept level to
     description: >-
       holds between two classes where the domain class is a specialization of the range class
     domain: ontology class
@@ -1722,8 +1722,8 @@ slots:
       # RTX mapping
       - rdfs:subPropertyOf
 
-  same as:
-    is_a: exact match
+  is same as:
+    is_a: has exact match
     description: >-
       holds between two entities that are considered equivalent to each other
     in_subset:
@@ -1747,8 +1747,8 @@ slots:
     narrow_mappings:
       - DRUGBANK:external-identifier
 
-  close match:
-    is_a: related to at concept level
+  has close match:
+    is_a: is related at concept level to
     description: >-
       a list of terms from different schemas or terminology systems that have
       a semantically similar but not strictly equivalent, broader, or narrower
@@ -1773,8 +1773,8 @@ slots:
       - RXNORM:has_quantified_form
       - UMLS:SY
 
-  exact match:
-    is_a: close match
+  has exact match:
+    is_a: has close match
     description: >-
       holds between two entities that have strictly equivalent
       meanings, with a high degree of confidence
@@ -1788,40 +1788,40 @@ slots:
       - WIKIDATA:Q39893449
       - WIKIDATA:P2888
 
-  broad match:
+  has broad match:
     description: >-
       a list of terms from different schemas or terminology systems
       that have a broader, more general meaning. Broader terms are
       typically shown as parents in a hierarchy or tree.
-    is_a: related to at concept level
+    is_a: is related at concept level to
     in_subset:
       - translator_minimal
     annotations:
       canonical_predicate: true
-      opposite_of: narrow match
+      opposite_of: has narrow match
     exact_mappings:
       - skos:broadMatch
       - WIKIDATA:Q39894595
 
-  narrow match:
+  has narrow match:
     description: >-
       a list of terms from different schemas or terminology systems
       that have a narrower, more specific meaning. Narrower terms are
       typically shown as children in a hierarchy or tree.
-    is_a: related to at concept level
-    inverse: broad match
+    is_a: is related at concept level to
+    inverse: has broad match
     in_subset:
       - translator_minimal
     exact_mappings:
       - skos:narrowMatch
       - WIKIDATA:Q39893967
     annotations:
-      opposite_of: broad match
+      opposite_of: has broad match
 
-  member of:
+  is member of:
     description: >-
       Defines a mereological relation between a item and a collection.
-    is_a: related to at concept level
+    is_a: is related at concept level to
     inverse: has member
     in_subset:
       - translator_minimal
@@ -1833,18 +1833,18 @@ slots:
   has member:
     description: >-
       Defines a mereological relation between a collection and an item.
-    is_a: related to at concept level
+    is_a: is related at concept level to
     in_subset:
       - translator_minimal
     exact_mappings:
       - RO:0002351
       - skos:member
 
-  opposite of:
+  is opposite of:
     description: >-
       x is the opposite of y if there exists some distance metric M, and there exists
       no z such as M(x,z) <= M(x,y) or M(y,z) <= M(y,x). (This description is from RO. Needs to be rephrased).
-    is_a: related to at instance level
+    is_a: is related at instance level to
     symmetric: true
     annotations:
       canonical_predicate: true
@@ -1855,8 +1855,8 @@ slots:
       - https://github.com/biolink/biolink-model/issues/657
 
 
-  associated with likelihood of:
-    is_a: associated with
+  is associated with likelihood of:
+    is_a: is associated with
     description: >-
       A a relationship that holds between two concepts represented by variables for which a statistical 
       dependence is demonstrated, wherein the state or value of one variable predicts the future state 
@@ -1866,39 +1866,39 @@ slots:
     annotations:
       canonical_predicate: true
 
-  likelihood associated with:
-    is_a: associated with
+  has likelihood associated with:
+    is_a: is associated with
     description: >-
-    inverse: associated with likelihood of
+    inverse: is associated with likelihood of
 
-  associated with increased likelihood of:
-    is_a: associated with likelihood of
+  is associated with increased likelihood of:
+    is_a: is associated with likelihood of
     description: >-
       Expresses a relationship between two named things where the relationship is typically generated statistically
       and the state or fact of something is more probable.
     annotations:
       canonical_predicate: true
 
-  increased likelihood associated with:
-    is_a: likelihood associated with
+  has increased likelihood associated with:
+    is_a: has likelihood associated with
     description: >-
-    inverse: associated with increased likelihood of
+    inverse: is associated with increased likelihood of
 
-  associated with decreased likelihood of:
-    is_a: associated with likelihood of
+  is associated with decreased likelihood of:
+    is_a: is associated with likelihood of
     description: >-
       Expresses a relationship between two named things where the relationship is typically generated statistically
       and the state or fact of something is less probable.
     annotations:
       canonical_predicate: true
 
-  decreased likelihood associated with:
-    is_a: likelihood associated with
+  has decreased likelihood associated with:
+    is_a: has likelihood associated with
     description: >-
-    inverse: associated with decreased likelihood of
+    inverse: is associated with decreased likelihood of
 
-  target for:
-    is_a: related to at instance level
+  is target for:
+    is_a: is related at instance level to
     description: >-
       A gene is a target of a disease when its products are druggable and when a drug interaction with the gene
       product could have a therapeutic effect
@@ -1908,13 +1908,13 @@ slots:
     range: disease
 
   has target:
-    is_a: related to at instance level
-    inverse: target for
+    is_a: is related at instance level to
+    inverse: is target for
     domain: disease
     range: gene
 
-  active in:
-    is_a: related to at instance level
+  is active in:
+    is_a: is related at instance level to
     domain: gene or gene product
     range: cellular component
     annotations:
@@ -1923,13 +1923,13 @@ slots:
       - RO:0002432
 
   has active component:
-    is_a: related to at instance level
-    inverse: active in
+    is_a: is related at instance level to
+    inverse: is active in
     domain: cellular component
     range: gene or gene product
 
   acts upstream of:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: gene or gene product
     range: biological process
     annotations:
@@ -1938,7 +1938,7 @@ slots:
       - RO:0002263
 
   has upstream actor:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: acts upstream of
     domain: biological process
     range: gene or gene product
@@ -2023,23 +2023,23 @@ slots:
     description: >-
       refers to is a relation between one information content entity and the named thing
       that it makes reference to.
-    is_a: related to at instance level
+    is_a: is related at instance level to
     exact_mappings:
       - IAO:0000142
     narrow_mappings:
       - SIO:000628
 
-  mentioned by:
+  is mentioned by:
     description: >-
       refers to is a relation between one named thing and the information content entity
       that it makes reference to.
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: mentions
 
   ## Publication related predicates
 
-  contributor:
-    is_a: related to at instance level
+  is contributor of:
+    is_a: is related at instance level to
     domain: agent
     range: information content entity
     comments:
@@ -2049,24 +2049,24 @@ slots:
       - dct:contributor
 
   has contributor:
-    inverse: contributor
-    is_a: related to at instance level
+    inverse: is contributor of
+    is_a: is related at instance level to
     domain: information content entity
     range: agent
 
-  provider:
-    is_a: contributor
+  is provider of:
+    is_a: is contributor of
     description: >-
       person, group, organization or project that provides a piece of information (e.g. a knowledge association).
 
   has provider:
-    inverse: provider
+    inverse: is provider of
     is_a: has contributor
     domain: information content entity
     range: agent
 
-  publisher:
-    is_a: contributor
+  is publisher of:
+    is_a: is contributor of
     domain: agent
     range: publication
     description: >-
@@ -2081,12 +2081,12 @@ slots:
 
   has publisher:
     is_a: has contributor
-    inverse: publisher
+    inverse: is publisher of
     domain: publication
     range: agent
 
-  editor:
-    is_a: contributor
+  is editor of:
+    is_a: is contributor of
     domain: agent
     range: publication
     description: >-
@@ -2099,13 +2099,13 @@ slots:
       - WIKIDATA_PROPERTY:P98
 
   has editor:
-    inverse: editor
+    inverse: is editor of
     is_a: has contributor
     domain: publication
     range: agent
 
-  author:
-    is_a: contributor
+  is author of:
+    is_a: is contributor of
     domain: agent
     range: publication
     description: >-
@@ -2115,7 +2115,7 @@ slots:
       - WIKIDATA_PROPERTY:P50
 
   has author:
-    inverse: author
+    inverse: is author of
     is_a: has contributor
     domain: publication
     range: agent
@@ -2123,7 +2123,7 @@ slots:
   ## end of Publication related predicates
 
   assesses:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     aliases: [ 'was assayed against' ]
     description: >-
       The effect of a thing on a target was interrogated in some assay.
@@ -2137,7 +2137,7 @@ slots:
       canonical_predicate: true
 
   is assessed by:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: assesses
     domain: named thing
     range: named thing
@@ -2147,7 +2147,7 @@ slots:
     range: named thing
     description: >-
       holds between any two entities that directly or indirectly interact with each other
-    is_a: related to at instance level
+    is_a: is related at instance level to
     in_subset:
       - translator_minimal
     symmetric: true
@@ -2249,7 +2249,7 @@ slots:
       - RO:0002435
 
   affects:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       describes an entity that has a direct affect on the state or quality
       of another existing entity. Use of the 'affects' predicate implies that
@@ -2299,15 +2299,15 @@ slots:
       - UBERGRAPH:is_increase_of # talked to Jim Balhoff, this is a valid mapping
       - UBERGRAPH:is_decrease_of # talked to Jim Balhoff, this is a valid mapping
 
-  affected by:
-    is_a: related to at instance level
+  is affected by:
+    is_a: is related at instance level to
     description: >-
       describes an entity of which the state or quality is affected by
       another existing entity.
     inverse: affects
 
-  associated with sensitivity to:
-    is_a: associated with
+  is associated with sensitivity to:
+    is_a: is associated with
     description: >-
       A relation that holds between a named thing and a chemical
       that specifies that the change in the named
@@ -2321,14 +2321,14 @@ slots:
     narrow_mappings:
       - SNOMEDCT:418038007 # propensity to adverse reaction
 
-  sensitivity associated with:
-    is_a: associated with
-    inverse: associated with sensitivity to
+  has sensitivity associated with:
+    is_a: is associated with
+    inverse: is associated with sensitivity to
     range: named thing
     domain: chemical entity
 
-  associated with resistance to:
-    is_a: associated with
+  is associated with resistance to:
+    is_a: is associated with
     description: >-
       A relation that holds between a named thing and a chemical
       that specifies that the change in the named
@@ -2338,14 +2338,14 @@ slots:
     annotations:
       canonical_predicate: true
 
-  resistance associated with:
-    is_a: associated with
-    inverse: associated with resistance to
+  has resistance associated with:
+    is_a: is associated with
+    inverse: is associated with resistance to
     range: named thing
     domain: chemical entity
 
   diagnoses:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       a relationship that identifies the nature of (an illness or other problem) by examination of the symptoms.
     domain: chemical or drug or treatment
@@ -2360,35 +2360,35 @@ slots:
       - SEMMEDDB:DIAGNOSES
 
   is diagnosed by:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: diagnoses
     range: chemical or drug or treatment
     domain: disease or phenotypic feature
 
   increases amount or activity of:
     deprecated: true
-    is_a: related to at instance level
+    is_a: is related at instance level to
     mixin: true
     description: >-
       A grouping mixin to help with searching for all the predicates that increase the amount
       or activity of the object.
 
-  amount or activity increased by:
+  has amount or activity increased by:
     deprecated: true
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: increases amount or activity of
 
   decreases amount or activity of:
     deprecated: true
-    is_a: related to at instance level
+    is_a: is related at instance level to
     mixin: true
     description: >-
       A grouping mixin to help with searching for all the predicates that decrease the amount
       or activity of the object.
 
-  amount or activity decreased by:
+  has amount or activity decreased by:
     deprecated: true
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: decreases amount or activity of
 
   ## role mixins for use in tagging corresponding role predicates
@@ -2413,18 +2413,18 @@ slots:
       - translator_minimal
     domain: chemical entity or gene or gene product
     range: chemical entity or gene or gene product
-    inverse: response affected by
+    inverse: has response affected by
     annotations:
       canonical_predicate: true
     exact_mappings:
       - CTD:affects_response_to
 
-  response affected by:
+  has response affected by:
     description: >-
       holds between two chemical entities where the susceptibility of a biological entity or system
       (e.g. an organism, cell, cellular component, macromolecular machine mixin,
       biological or pathological process) of one is affected by the action of the other.
-    is_a: affected by
+    is_a: is affected by
     in_subset:
       - translator_minimal
     domain: chemical entity or gene or gene product
@@ -2447,8 +2447,8 @@ slots:
     exact_mappings:
       - CTD:increases_response_to
 
-  response increased by:
-    is_a: response affected by
+  has response increased by:
+    is_a: has response affected by
     in_subset:
       - translator_minimal
     domain: chemical entity or gene or gene product
@@ -2474,8 +2474,8 @@ slots:
     narrow_mappings:
       - CTD:decreases_response_to_substance
 
-  response decreased by:
-    is_a: response affected by
+  has response decreased by:
+    is_a: has response affected by
     in_subset:
       - translator_minimal
     domain: chemical entity or gene or gene product
@@ -2508,8 +2508,8 @@ slots:
       - RO:0002448
       - WIKIDATA_PROPERTY:P128
 
-  regulated by:
-    is_a: affected by
+  is regulated by:
+    is_a: is affected by
     domain: physical essence or occurrent
     range: physical essence or occurrent
     inverse: regulates
@@ -2532,15 +2532,15 @@ slots:
       - RO:0004024
       - RO:0004025
 
-  disrupted by:
-    is_a: affected by
+  is disrupted by:
+    is_a: is affected by
     description: >-
       describes a relationship where the structure, function, or occurrence
       of one entity is degraded or interfered with by another.
     inverse: disrupts
 
-  gene product of:
-    is_a: related to at instance level
+  is gene product of:
+    is_a: is related at instance level to
     description: >-
       definition x has gene product of y if and only if y is a gene (SO:0000704)
       that participates in some gene expression process (GO:0010467) where the output of thatf
@@ -2556,13 +2556,13 @@ slots:
       - translator_minimal
 
   has gene product:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between a gene and a transcribed and/or
       translated product generated from it
     domain: gene
     range: gene product mixin
-    inverse: gene product of
+    inverse: is gene product of
     in_subset:
       - translator_minimal
     close_mappings:
@@ -2575,24 +2575,24 @@ slots:
     narrow_mappings:
       - NCIT:R178
 
-  transcribed to:
-    is_a: related to at instance level
+  is transcribed to:
+    is_a: is related at instance level to
     domain: gene
     range: transcript
     description: >-
       inverse of transcribed from
-    inverse: transcribed from
+    inverse: is transcribed from
     exact_mappings:
       - RO:0002511
       - SIO:010080
 
-  transcribed from:
-    is_a: related to at instance level
+  is transcribed from:
+    is_a: is related at instance level to
     domain: transcript
     range: gene
     annotations:
       canonical_predicate: true
-    inverse: transcribed to
+    inverse: is transcribed to
     description: >-
       x is transcribed from y if and only if x is synthesized from template y
     exact_mappings:
@@ -2600,12 +2600,12 @@ slots:
       - SIO:010081
 
   translates to:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: transcript
     range: protein
     annotations:
       canonical_predicate: true
-    inverse: translation of
+    inverse: is translation of
     description: >-
       x (amino acid chain/polypeptide) is the ribosomal translation of y (transcript) if and only if a ribosome
       reads y (transcript) through a series of triplet codon-amino acid adaptor activities (GO:0030533)
@@ -2614,8 +2614,8 @@ slots:
       - RO:0002513
       - SIO:010082
 
-  translation of:
-    is_a: related to at instance level
+  is translation of:
+    is_a: is related at instance level to
     domain: protein
     range: transcript
     description: >-
@@ -2625,8 +2625,8 @@ slots:
       - RO:0002512
       - SIO:010083
 
-  homologous to:
-    is_a: similar to
+  is homologous to:
+    is_a: is similar to
     aliases: [ 'in homology relationship with' ]
     description: >-
       holds between two biological entities that have common evolutionary origin
@@ -2644,8 +2644,8 @@ slots:
       # This is a tricky one to place; seems narrower than the RO mapping but that mapping, RO:0002158
       - UBERON_CORE:sexually_homologous_to
 
-  paralogous to:
-    is_a: homologous to
+  is paralogous to:
+    is_a: is homologous to
     description: >-
       a homology relationship that holds between entities (typically genes) that diverged after a duplication event.
     in_subset:
@@ -2656,8 +2656,8 @@ slots:
     exact_mappings:
       - RO:HOM0000011
 
-  orthologous to:
-    is_a: homologous to
+  is orthologous to:
+    is_a: is homologous to
     description: >-
       a homology relationship between entities (typically genes) that diverged after a speciation event.
     in_subset:
@@ -2669,8 +2669,8 @@ slots:
       - RO:HOM0000017
       - WIKIDATA_PROPERTY:P684
 
-  xenologous to:
-    is_a: homologous to
+  is xenologous to:
+    is_a: is homologous to
     description: >-
       a homology relationship characterized by an interspecies (horizontal) transfer since the common ancestor.
     in_subset:
@@ -2682,7 +2682,7 @@ slots:
       - RO:HOM0000018
 
   coexists with:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between two entities that are co-located in the same aggregate object, process, or spatio-temporal region
     in_subset:
@@ -2869,7 +2869,7 @@ slots:
       - UBERON:proximally_connected_to
       - UBERON:sexually_homologous_to
 
-  in pathway with:
+  is in pathway with:
     description: >-
       holds between two genes or gene products that are part of in the same biological pathway
     is_a: coexists with
@@ -2885,7 +2885,7 @@ slots:
       # metabolite, etc? - in an (object) metabolic pathway
       - SIO:010532
 
-  in complex with:
+  is in complex with:
     description: >-
       holds between two genes or gene products that are part of (or code for
       products that are part of) in the same macromolecular complex
@@ -2904,7 +2904,7 @@ slots:
       # generally pertains to membership of any (subject) constituent molecule in an (object) molecular complex (might also generically cover RNA-Protein, Lipid-Protein, etc complexes)
       - SIO:010285
 
-  in cell population with:
+  is in cell population with:
     description: >-
       holds between two genes or gene products that are expressed in the same cell type or population
     is_a: coexists with
@@ -2916,7 +2916,7 @@ slots:
     annotations:
       canonical_predicate: true
 
-  colocalizes with:
+  is colocalizes with:
     description: >-
       holds between two entities that are observed to be located in the same place.
     is_a: coexists with
@@ -2930,8 +2930,8 @@ slots:
 
   # Despite the name, note that this particular entity is
   # NOT a biolink:Association but rather, a biolink:predicate
-  genetic association:
-    is_a: related to at instance level
+  is genetically associated with:
+    is_a: is related at instance level to
     symmetric: true
     annotations:
       canonical_predicate: true
@@ -2941,8 +2941,8 @@ slots:
     exact_mappings:
       - WIKIDATA_PROPERTY:P2293
 
-  gene associated with condition:
-    is_a: genetic association
+  is gene associated with condition:
+    is_a: is genetically associated with
     description: >-
       holds between a gene and a disease or phenotypic feature that the gene or its alleles/products may influence,
       contribute to, or correlate with
@@ -2961,8 +2961,8 @@ slots:
       - NCIT:R175
       - NCIT:R48
 
-  condition associated with gene:
-    is_a: genetic association
+  is condition associated with gene:
+    is_a: is genetically associated with
     aliases: [ 'disease associated with gene' ]
     description: >-
       holds between a gene and a disease or phenotypic feature that may be influenced, contribute to, or be correlated with the gene or its alleles/products
@@ -2970,13 +2970,13 @@ slots:
     range: disease or phenotypic feature
     in_subset:
       - translator_minimal
-    inverse: gene associated with condition
+    inverse: is gene associated with condition
     narrow_mappings:
       # narrower since just diseases, not phenotypic features as well
       - NCIT:R176
 
   affects risk for:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between two entities where exposure to one entity alters the chance of developing the other
     annotations:
@@ -2984,8 +2984,8 @@ slots:
     in_subset:
       - translator_minimal
 
-  risk affected by:
-    is_a: related to at instance level
+  has risk affected by:
+    is_a: is related at instance level to
     inverse: affects risk for
 
   predisposes:
@@ -3001,13 +3001,13 @@ slots:
       - SEMMEDDB:PREDISPOSES
 
   has predisposing factor:
-    is_a: risk affected by
+    is_a: has risk affected by
     inverse: predisposes
     in_subset:
       - translator_minimal
 
   contributes to:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between two entities where the occurrence, existence, or activity of one causes or contributes to the
       occurrence or generation of the other
@@ -3028,8 +3028,8 @@ slots:
       # RTX term 'contributes to condition' mapped to 'biolink:causes' seems more suitable here
       - RO:0003304
 
-  contribution from:
-    is_a: related to at instance level
+  has contribution from:
+    is_a: is related at instance level to
     in_subset:
       - translator_minimal
     inverse: contributes to
@@ -3081,11 +3081,11 @@ slots:
       - SNOMED:has_realization
       - UMLS:has_physiologic_effect
 
-  caused by:
+  is caused by:
     description: >-
       holds between two entities where the occurrence, existence,
       or activity of one is caused by the occurrence or generation of the other
-    is_a: contribution from
+    is_a: has contribution from
     aliases: [ 'disease caused by disruption of', 'disease has basis in dysfunction of',
                'realized in response to', 'realized in response to stimulus' ]
     in_subset:
@@ -3121,7 +3121,7 @@ slots:
 
   is ameliorated by:
     inverse: ameliorates
-    is_a: affected by
+    is_a: is affected by
     domain: disease or phenotypic feature
     range: named thing
 
@@ -3144,7 +3144,7 @@ slots:
 
   is exacerbated by:
     inverse: exacerbates
-    is_a: affected by
+    is_a: is affected by
     domain: disease or phenotypic feature
     range: biological entity
     in_subset:
@@ -3160,7 +3160,7 @@ slots:
     range: disease or phenotypic feature
     annotations:
       canonical_predicate: true
-      opposite_of: contraindicated for
+      opposite_of: is contraindicated for
     in_subset:
       - translator_minimal
     related_mappings:
@@ -3196,7 +3196,7 @@ slots:
       - REPODB:clinically_tested_withdrawn_phase_3
       - SNOMED:plays_role
 
-  treated by:
+  is treated by:
     is_a: is ameliorated by
     description: >-
       holds between a disease or phenotypic feature and a therapeutic
@@ -3234,17 +3234,17 @@ slots:
       # more restricted case of a material entity mitigating a pathological process
       - RO:0002599
 
-  prevented by:
-    is_a: risk affected by
+  is prevented by:
+    is_a: has risk affected by
     description: >-
       holds between a potential outcome of which the likelihood
       was reduced by the application or use of an entity.
     inverse: prevents
     annotations:
-      opposite_of: enabled by
+      opposite_of: is enabled by
 
-  correlated with:
-    is_a: associated with
+  is correlated with:
+    is_a: is associated with
     description: >-
       A relationship that holds between two concepts represented by variables for which a statistical dependence is 
       demonstrated using a correlation analysis method.
@@ -3264,8 +3264,8 @@ slots:
 
   # proposed positive and negative semantic extensions to the general "correlated with" predicate
 
-  positively correlated with:
-    is_a: correlated with
+  is positively correlated with:
+    is_a: is correlated with
     description: >-
       A relationship that holds between two concepts represented by variables for which a statistical correlation 
       is demonstrated, wherein variable values move together in the same direction (i.e. increased in one or 
@@ -3277,12 +3277,12 @@ slots:
     symmetric: true
     annotations:
       canonical_predicate: true
-      opposite_of: negatively correlated with
+      opposite_of: is negatively correlated with
     exact_mappings:
       - CTD:positive_correlation
 
-  negatively correlated with:
-    is_a: correlated with
+  is negatively correlated with:
+    is_a: is correlated with
     description: >-
       A relationship that holds between two concepts represented by variables for which a statistical correlation 
       is demonstrated, wherein variable values move in opposite directions (i.e. increased in one or presence of 
@@ -3294,12 +3294,12 @@ slots:
     symmetric: true
     annotations:
       canonical_predicate: true
-      opposite_of: positively correlated with
+      opposite_of: is positively correlated with
     exact_mappings:
       - CTD:negative_correlation
 
   occurs together in literature with:
-    is_a: correlated with
+    is_a: is correlated with
     description: >-
       holds between two entities where their co-occurrence is correlated by counts of publications
       in which both occur, using some threshold of occurrence as defined by the edge provider.
@@ -3310,8 +3310,8 @@ slots:
     annotations:
       canonical_predicate: true
 
-  coexpressed with:
-    is_a: correlated with
+  is coexpressed with:
+    is_a: is correlated with
     description: >-
       holds between any two genes or gene products, in which both are
       generally expressed within a single defined experimental context.
@@ -3322,7 +3322,7 @@ slots:
       canonical_predicate: true
 
   has biomarker:
-    is_a: correlated with
+    is_a: is correlated with
     description: >-
       holds between a disease or phenotypic feature and a measurable
       chemical entity that is used as an indicator of the presence
@@ -3332,14 +3332,14 @@ slots:
     range: chemical entity or gene or gene product
     in_subset:
       - translator_minimal
-    inverse: biomarker for
+    inverse: is biomarker for
     narrow_mappings:
       # some RTX terms contributed as inverses of 'biolink:biomarker_for'
       - NCIT:disease_has_molecular_abnormality
       - NCIT:disease_is_marked_by_gene
 
-  biomarker for:
-    is_a: correlated with
+  is biomarker for:
+    is_a: is correlated with
     description: >-
       holds between a measurable chemical entity and a disease
       or phenotypic feature, where the entity is used as an indicator
@@ -3365,8 +3365,8 @@ slots:
   # It may be helpful to introduce an intermediate predicate in between 'related_to' and 'expressed in'
   # which would have a domain of 'biological entity' and range of 'anatomical entity', to map predicates
   # which are biological which have manifestation in an anatomical site, e.g. RO:0004026, RO:0004027 and others
-  expressed in:
-    is_a: located in
+  is expressed in:
+    is_a: is located in
     description: >-
       holds between a gene or gene product and an anatomical entity in which it is expressed
     domain: gene or gene product
@@ -3383,7 +3383,7 @@ slots:
       - NCIT:R46
 
   expresses:
-    is_a: location of
+    is_a: is location of
     aliases: [ 'anatomy expresses gene' ]
     description: >-
       holds between an anatomical entity and gene or gene product that is expressed there
@@ -3392,12 +3392,12 @@ slots:
     multivalued: true
     in_subset:
       - translator_minimal
-    inverse: expressed in
+    inverse: is expressed in
     exact_mappings:
       - RO:0002292
 
   has phenotype:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     aliases: [ 'disease presents symptom' ]
     description: >-
       holds between a biological entity and a phenotype, where a phenotype
@@ -3424,8 +3424,8 @@ slots:
       - DOID-PROPERTY:has_symptom
       - RO:0004022
 
-  phenotype of:
-    is_a: related to at instance level
+  is phenotype of:
+    is_a: is related at instance level to
     domain: phenotypic feature
     range: biological entity
     multivalued: true
@@ -3433,7 +3433,7 @@ slots:
 
   # TODO: predicate inverse for occurs in
   occurs in:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between a process and a material entity or site within which the process occurs
     in_subset:
@@ -3465,11 +3465,11 @@ slots:
       - SNOMED:has_procedure_site
 
   contains process:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: occurs in
 
-  located in:
-    is_a: related to at instance level
+  is located in:
+    is_a: is related at instance level to
     description: >-
       holds between a material entity and a material entity or site
       within which it is located (but of which it is not considered a part)
@@ -3525,8 +3525,8 @@ slots:
     domain: named thing
     range: named thing
 
-  location of:
-    is_a: related to at instance level
+  is location of:
+    is_a: is related at instance level to
     aliases: [ 'site of' ]
     domain: named thing
     range: named thing
@@ -3535,7 +3535,7 @@ slots:
       that is located within it (but not considered a part of it)
     in_subset:
       - translator_minimal
-    inverse: located in
+    inverse: is located in
     exact_mappings:
       - RO:0001015
       - SEMMEDDB:LOCATION_OF
@@ -3550,17 +3550,17 @@ slots:
     description: >-
       A relationship between a disease and an anatomical entity where the
       disease has one or more features that are located in that entity.
-    is_a: related to
+    is_a: is related to
     exact_mappings:
       - RO:0004026
       - MONDO:disease_has_location
 
-  location of disease:
-    is_a: related to
+  is location of disease:
+    is_a: is related to
     inverse: disease has location
 
-  similar to:
-    is_a: related to at instance level
+  is similar to:
+    is_a: is related at instance level to
     description: >-
       holds between an entity and some other entity with similar features.
     in_subset:
@@ -3572,8 +3572,8 @@ slots:
       - RO:HOM0000000               #I don't understand this identifier, but I think it's equivalent
       - SO:similar_to               #equivalent
 
-  chemically similar to:
-    is_a: similar to
+  is chemically similar to:
+    is_a: is similar to
     description: >-
       holds between one small molecule entity and another that it approximates
       for purposes of scientific study, in virtue of its exhibiting
@@ -3593,7 +3593,7 @@ slots:
       - NCIT:has_salt_form
 
   has sequence location:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between two nucleic acid entities when the subject can be localized
       in sequence coordinates on the object. For example, between
@@ -3605,14 +3605,14 @@ slots:
     exact_mappings:
       - faldo:location
 
-  sequence location of:
-    is_a: related to at instance level
+  is sequence location of:
+    is_a: is related at instance level to
     domain: nucleic acid entity
     range: nucleic acid entity
     inverse: has sequence location
 
-  model of:
-    is_a: related to at instance level
+  is model of:
+    is_a: is related at instance level to
     description: >-
       holds between a thing and some other thing it approximates
       for purposes of scientific study, in virtue of its exhibiting
@@ -3626,12 +3626,12 @@ slots:
     narrow_mappings:
       - FOODON:00001301
 
-  models:
-    is_a: related to at instance level
-    inverse: model of
+  has model:
+    is_a: is related at instance level to
+    inverse: is model of
 
   overlaps:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between entities that overlap in their extents (materials or processes)
     in_subset:
@@ -3711,8 +3711,8 @@ slots:
     in_subset:
       - translator_minimal
 
-  composed primarily of:
-    is_a: related to
+  is composed primarily of:
+    is_a: is related to
     description: >-
       x composed_primarily_of_y if:more than half of the mass of x is made from parts of y.
     exact_mappings:
@@ -3722,15 +3722,15 @@ slots:
     in_subset:
       - translator_minimal
 
-  primarily composed of:
-    inverse: composed primarily of
-    is_a: related to
+  primarily composes:
+    inverse: is composed primarily of
+    is_a: is related to
 
-  plasma membrane part of:
-    is_a: part of
+  is plasma membrane part of:
+    is_a: is part of
     inverse: has plasma membrane part
 
-  part of:
+  is part of:
     is_a: overlaps
     description: >-
       holds between parts and wholes (material entities or processes)
@@ -3876,7 +3876,7 @@ slots:
       - translator_minimal
 
   has participant:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between a process and a continuant, where the continuant is somehow involved in the process
     domain: biological process or activity
@@ -3938,7 +3938,7 @@ slots:
     range: molecular activity
 
   participates in:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between a continuant and a process, where the continuant is somehow involved
       in the process
@@ -3965,7 +3965,7 @@ slots:
       - RO:0002565
       - SNOMED:has_direct_device
 
-  actively involved in:
+  is actively involved in:
     is_a: participates in
     aliases: [ 'involved in' ]
     description: >-
@@ -3992,14 +3992,14 @@ slots:
     is_a: has participant
     domain: molecular activity
     range: occurrent
-    inverse: actively involved in
+    inverse: is actively involved in
     exact_mappings:
       - RO:0002331
     in_subset:
       - translator_minimal
 
-  capable of:
-    is_a: actively involved in
+  is capable of:
+    is_a: is actively involved in
     description: >-
       holds between a physical entity and process or function, where the
       continuant alone has the ability to carry out the process or function.
@@ -4016,7 +4016,7 @@ slots:
 
   can be carried out by:
     is_a: actively involves
-    inverse: capable of
+    inverse: is capable of
     domain: occurrent
 
   enables:
@@ -4030,11 +4030,11 @@ slots:
       opposite_of: prevents
     in_subset:
       - translator_minimal
-    inverse: enabled by
+    inverse: is enabled by
     exact_mappings:
       - RO:0002327
 
-  enabled by:
+  is enabled by:
     is_a: has participant
     description: >-
       holds between a process and a physical entity, where the physical entity executes the process
@@ -4046,11 +4046,11 @@ slots:
     exact_mappings:
       - RO:0002333
     annotations:
-      opposite_of: prevented by
+      opposite_of: is prevented by
 
   derives into:
-    is_a: related to at instance level
-    aliases: [ 'is normal cell origin of disease', 'may be normal cell origin of disease' ]
+    is_a: is related at instance level to
+    aliases:[ 'is normal cell origin of disease', 'may be normal cell origin of disease' ]
     description: >-
       holds between two distinct material entities, the old entity and
       the new entity, in which the new entity begins to exist when
@@ -4062,7 +4062,7 @@ slots:
     # TODO: fix this according to WG notes. Example of both opposite and inverse
     # Commenting as it feels very wrong. A good example with both opposite and inverse is `has active ingredient`
     # annotations:
-    #   opposite_of: subclass of
+    #   opposite_of: is subclass of
     exact_mappings:
       - RO:0001001
       - SEMMEDDB:CONVERTS_TO
@@ -4070,7 +4070,7 @@ slots:
       - FMA:derives
 
   derives from:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
     description: >-
@@ -4121,8 +4121,8 @@ slots:
     exact_mappings:
       - CHEBI:25212
 
-  food component of:
-    is_a: part of
+  is food component of:
+    is_a: is part of
     description: >-
       holds between a one or more chemical entities present in food,
       irrespective of nutritional value (i.e. could also be a contaminant or additive)
@@ -4146,8 +4146,8 @@ slots:
     in_subset:
       - translator_minimal
 
-  nutrient of:
-    is_a: food component of
+  is nutrient of:
+    is_a: is food component of
     description: >-
       holds between a one or more chemical entities present in food,
       irrespective of nutritional value (i.e. could also be a contaminant or additive)
@@ -4173,7 +4173,7 @@ slots:
       - WIKIDATA:Q181394
 
   is active ingredient of:
-    is_a: part of
+    is_a: is part of
     description: >-
       holds between a molecular entity and a drug, in which the former
       is a part of the latter, and is a biologically active component
@@ -4202,7 +4202,7 @@ slots:
       - RO:0002248
 
   is excipient of:
-    is_a: part of
+    is_a: is part of
     description: >-
       holds between a molecular entity and a drug in which the former is
       a part of the latter, and is a biologically inactive component
@@ -4228,8 +4228,8 @@ slots:
     mappings:
       - WIKIDATA:Q902638
 
-  manifestation of:
-    is_a: related to at instance level
+  is manifestation of:
+    is_a: is related at instance level to
     description: >-
       that part of a phenomenon which is directly observable or
       visibly expressed, or which gives evidence to the underlying
@@ -4250,12 +4250,12 @@ slots:
       - SNOMED:has_definitional_manifestation
 
   has manifestation:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: disease
-    inverse: manifestation of
+    inverse: is manifestation of
 
-  mode of inheritance of:
-    is_a: manifestation of
+  is mode of inheritance of:
+    is_a: is manifestation of
     domain: genetic inheritance
     range: disease or phenotypic feature
     inverse: has mode of inheritance
@@ -4275,7 +4275,7 @@ slots:
       - translator_minimal
 
   produces:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: >-
       holds between a material entity and a product that is generated
       through the intentional actions or functioning of the material entity
@@ -4294,8 +4294,8 @@ slots:
       - SNOMED:has_process_output
       - SNOMED:specimen_procedure_of
 
-  produced by:
-    is_a: related to at instance level
+  is produced by:
+    is_a: is related at instance level to
     inverse: produces
     exact_mappings:
       - RO:0003001
@@ -4307,12 +4307,12 @@ slots:
     narrow_mappings:
       - RO:0004009
 
-  consumed by:
+  is consumed by:
     is_a: is input of
     inverse: consumes
 
-  temporally related to:
-    is_a: related to at instance level
+  is temporally related to:
+    is_a: is related at instance level to
     description: >-
       holds between two entities with a temporal relationship
     domain: occurrent
@@ -4340,14 +4340,14 @@ slots:
       - RO:0002497
 
   precedes:
-    is_a: temporally related to
+    is_a: is temporally related to
     description: >-
       holds between two processes, where one completes before the other begins
     domain: occurrent
     range: occurrent
     annotations:
       canonical_predicate: true
-    inverse: preceded by
+    inverse: is preceded by
     in_subset:
       - translator_minimal
     close_mappings:
@@ -4368,8 +4368,8 @@ slots:
       - RO:0002411
       - RO:0002412
 
-  preceded by:
-    is_a: temporally related to
+  is preceded by:
+    is_a: is temporally related to
     description: >-
       holds between two processes, where the other is completed before the one begins
     domain: occurrent
@@ -4396,12 +4396,12 @@ slots:
     exact_mappings:
       - GENO:0000382
 
-  variant part of:
-    is_a: part of
+  is variant part of:
+    is_a: is part of
     inverse: has variant part
 
-  related condition:
-    is_a: related to at instance level
+  has related condition:
+    is_a: is related at instance level to
     symmetric: true
     annotations:
       canonical_predicate: true
@@ -4411,7 +4411,7 @@ slots:
   ## Predicates relating variants to genes
 
   is sequence variant of:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     aliases: [ 'gene product sequence variation encoded by gene mutant', 'allelic variant of', 'gene product variant of gene product' ]
     description: holds between a sequence variant and a nucleic acid entity
     domain: sequence variant
@@ -4422,7 +4422,7 @@ slots:
       - WIKIDATA:P3433
 
   has sequence variant:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: is sequence variant of
     domain: nucleic acid entity
     range: sequence variant
@@ -4556,7 +4556,7 @@ slots:
   disease has basis in:
     description: A relation that holds between a disease and an entity where the state
       of the entity has contribution to the disease.
-    is_a: related to at instance level
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
     narrow_mappings:
@@ -4565,7 +4565,7 @@ slots:
       - MONDO:disease_has_basis_in_accumulation_of
 
   occurs in disease:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: disease has basis in
 
 
@@ -4583,8 +4583,8 @@ slots:
     annotations:
       canonical_predicate: true
 
-  adverse event of:
-    is_a: affected by
+  is adverse event of:
+    is_a: is affected by
     domain: disease or phenotypic feature
     range: chemical or drug or treatment
     inverse: has adverse event
@@ -4607,13 +4607,13 @@ slots:
       - NCIT:C2861 # side effect
 
   is side effect of:
-    is_a: affected by
+    is_a: is affected by
     domain: disease or phenotypic feature
     range: chemical or drug or treatment
     inverse: has side effect
 
-  contraindicated for:
-    is_a: related to at instance level
+  is contraindicated for:
+    is_a: is related at instance level to
     description: Holds between a drug and a disease or phenotype, such that a person
       with that disease should not be treated with the drug.
     domain: drug
@@ -4625,16 +4625,16 @@ slots:
       - NCIT:C37933
 
   has contraindication:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: disease or phenotypic feature
     range: drug
-    inverse: contraindicated for
+    inverse: is contraindicated for
 
   # The remaining new slots are here because we ran across them somewhere and
   # they didn't seem to map well to anything else.
 
   has not completed:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: holds between an entity and a process that the entity is capable of,
       but has not completed
     exact_mappings:
@@ -4643,12 +4643,12 @@ slots:
       opposite_of: has completed
       canonical_predicate: true
 
-  not completed by:
-    is_a: related to at instance level
+  is not completed by:
+    is_a: is related at instance level to
     inverse: has not completed
 
   has completed:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     description: holds between an entity and a process that the entity is capable of
       and has completed
     annotations:
@@ -4657,13 +4657,13 @@ slots:
     exact_mappings:
       - CL:has_completed
 
-  completed by:
-    is_a: related to at instance level
+  is completed by:
+    is_a: is related at instance level to
     inverse: has completed
 
 
-  in linkage disequilibrium with:
-    is_a: related to at instance level
+  is in linkage disequilibrium with:
+    is_a: is related at instance level to
     description: holds between two sequence variants, the presence of which are correlated
       in a population
     symmetric: true
@@ -4672,32 +4672,36 @@ slots:
     exact_mappings:
       - NCIT:C16798
 
-  has increased amount:
-    is_a: related to at instance level
+  # check required
+  has increased amount of:
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
       opposite_of: has decreased amount
     narrow_mappings:
       - CL:has_high_plasma_membrane_amount
 
-  increased amount of:
-    is_a: related to at instance level
+  # check required
+  has increased amount in:
+    is_a: is related at instance level to
     inverse: has increased amount
 
-  has decreased amount:
-    is_a: related to at instance level
+  # check required
+  has decreased amount of:
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
       opposite_of: has increased amount
     narrow_mappings:
       - CL:has_low_plasma_membrane_amount
 
-  decreased amount in:
-    is_a: related to at instance level
+  # check required
+  has decreased amount in:
+    is_a: is related at instance level to
     inverse: has decreased amount
 
   lacks part:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
       opposite_of: has part
@@ -4707,12 +4711,12 @@ slots:
     narrow_mappings:
       - CL:lacks_plasma_membrane_part
 
-  missing from:
-    is_a: related to at instance level
+  is missing from:
+    is_a: is related at instance level to
     inverse: lacks part
 
   develops from:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     annotations:
       canonical_predicate: true
     close_mappings:
@@ -4730,12 +4734,12 @@ slots:
       - RO:0002226 # x develops_in y if x is located in y whilst x is developing
 
   develops into:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     inverse: develops from
 
-  in taxon:
+  has taxon:
     aliases: [ 'instance of', 'is organism source of gene product', 'organism has gene', 'gene found in organism', 'gene product has organism source' ]
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: thing with taxon
     range: organism taxon
     annotations:
@@ -4751,14 +4755,14 @@ slots:
     narrow_mappings:
       - RO:0002160
 
-  taxon of:
-    is_a: related to at instance level
-    inverse: in taxon
+  is taxon of:
+    is_a: is related at instance level to
+    inverse: has taxon
     domain: organism taxon
     range: thing with taxon
 
   has molecular consequence:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     aliases: [ 'allele has activity' ]
     description: >-
       connects a sequence variant to a class describing the molecular
@@ -4770,7 +4774,7 @@ slots:
       - NCIT:allele_has_activity
 
   is molecular consequence of:
-    is_a: related to at instance level
+    is_a: is related at instance level to
     domain: ontology class
     inverse: has molecular consequence
 
@@ -6303,7 +6307,7 @@ classes:
       This includes individual organisms; genes, their products and other molecular
       entities; body parts; biological processes
     slots:
-      - in taxon
+      - has taxon
 
   biological entity:
     is_a: named thing
@@ -8251,9 +8255,9 @@ classes:
         description: >-
           information content entity which an agent has helped realise
       predicate:
-        subproperty_of: contributor
+        subproperty_of: is contributor of
         description: >-
-          generally one of the predicate values 'provider', 'publisher', 'editor' or 'author'
+          generally one of the predicate values 'is provider of', 'is publisher of', 'is editor of' or 'is author of'
       object:
         range: agent
         description: >-
@@ -8363,7 +8367,7 @@ classes:
       subject:
         range: gene or gene product
       predicate:
-        subproperty_of: homologous to
+        subproperty_of: is homologous to
         symmetric: true
         description: >-
           homology relationship type
@@ -8387,7 +8391,7 @@ classes:
       object:
         range: gene family
       predicate:
-        subproperty_of: member of
+        subproperty_of: is member of
         symmetric: false
         description: >-
           membership of the gene in the given gene family.
@@ -8420,7 +8424,7 @@ classes:
       - gene expression mixin
     slot_usage:
       predicate:
-        subproperty_of: coexpressed with
+        subproperty_of: is coexpressed with
         symmetric: true
 
   pairwise gene to gene interaction:
@@ -8694,7 +8698,7 @@ classes:
       object:
         range: pathway
       predicate:
-        subproperty_of: part of
+        subproperty_of: is part of
 
   chemical to pathway association:
     description: >-
@@ -8730,7 +8734,7 @@ classes:
       - population context qualifier
     slot_usage:
       predicate:
-        subproperty_of: associated with
+        subproperty_of: is associated with
       subject aspect qualifier:
       # TODO: range
       subject context qualifier:
@@ -9272,7 +9276,7 @@ classes:
           in a protective manner, or if the product produced by the gene can be targeted by a small molecule and
           this leads to a protective or improving disease state.
       predicate:
-        subproperty_of: target for
+        subproperty_of: is target for
       has evidence:
         range: DruggableGeneCategoryEnum
     defining_slots:
@@ -9298,7 +9302,7 @@ classes:
       object:
         range: gene
       predicate:
-        subproperty_of: genetic association
+        subproperty_of: is genetically associated with
 
   variant to gene expression association:
     description: >-
@@ -9421,7 +9425,7 @@ classes:
       predicate:
         description: >-
           E.g. is pathogenic for
-        subproperty_of: related condition
+        subproperty_of: has related condition
       object:
         description: >-
           a disease that is associated with that variant
@@ -9446,7 +9450,7 @@ classes:
       predicate:
         description: >-
           E.g. is pathogenic for
-        subproperty_of: related condition
+        subproperty_of: has related condition
       object:
         description: >-
           a disease that is associated with that genotype
@@ -9468,7 +9472,7 @@ classes:
           an organism, a strain of organism, a genotype or variant that exhibits
           similar features, or a gene that when mutated exhibits features of the disease
       predicate:
-        subproperty_of: model of
+        subproperty_of: is model of
         description: >-
           The relationship to the disease
 
@@ -9624,7 +9628,7 @@ classes:
             description: cerebellum
       predicate:
         description: "expression relationship"
-        subproperty_of: expressed in
+        subproperty_of: is expressed in
       stage qualifier:
         range: life stage
         description: "stage at which the gene is expressed in the site"
@@ -9941,7 +9945,7 @@ classes:
         description: >-
           the whole
       predicate:
-        subproperty_of: part of
+        subproperty_of: is part of
 
   anatomical entity to anatomical entity ontogenic association:
     is_a: anatomical entity to anatomical entity association
@@ -10011,7 +10015,7 @@ classes:
         description: >-
           the more general taxon
       predicate:
-        subproperty_of: subclass of
+        subproperty_of: is subclass of
 
   organism taxon to organism taxon interaction:
     is_a: organism taxon to organism taxon association
