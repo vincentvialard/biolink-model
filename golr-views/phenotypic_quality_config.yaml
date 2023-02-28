@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: phenotypic_quality
+# metamodel_version: 1.7.0# version: 3.2.0id: phenotypic_quality
 schema_generating: true
 description: A property of a phenotype
 display_name: phenotypic quality
@@ -11,6 +11,7 @@ fields:
   display_name: id
 - id: type
   display_name: type
+  cardinality: multi
 - id: description
   description: a human-readable description of an entity
   display_name: description

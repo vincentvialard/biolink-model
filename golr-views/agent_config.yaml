@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: agent
+# metamodel_version: 1.7.0# version: 3.2.0id: agent
 schema_generating: true
 description: person, group, organization or project that provides a piece of information
   (i.e. a knowledge association)
@@ -12,6 +12,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: description
   description: a human-readable description of an entity
   display_name: description

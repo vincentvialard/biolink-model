@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: posttranslational_modification
+# metamodel_version: 1.7.0# version: 3.2.0id: posttranslational_modification
 schema_generating: true
 description: A chemical modification of a polypeptide or protein that occurs after
   translation.  e.g. polypeptide cleavage to form separate proteins, methylation or
@@ -17,6 +17,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: name
   description: A human-readable name for an attribute or entity.
   display_name: name

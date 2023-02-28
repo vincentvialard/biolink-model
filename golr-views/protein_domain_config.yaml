@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: protein_domain
+# metamodel_version: 1.7.0# version: 3.2.0id: protein_domain
 schema_generating: true
 description: A conserved part of protein sequence and (tertiary) structure that can
   evolve, function, and exist independently of the rest of the protein chain. Protein
@@ -18,6 +18,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: name
   description: A human-readable name for an attribute or entity.
   display_name: name

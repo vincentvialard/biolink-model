@@ -1,5 +1,5 @@
 {
-   "_comments": "Auto generated from biolink-model.yaml by jsonldcontextgen.py version: 0.1.1\n    Generation date: 2022-12-01T22:52:01\n    Schema: Biolink-Model\n    metamodel version: 1.7.0\n    model version: 3.1.1\n    \n    id: https://w3id.org/biolink/biolink-model\n    description: Entity and association taxonomy and datamodel for life-sciences data\n    license: https://creativecommons.org/publicdomain/zero/1.0/\n    ",
+   "_comments": "Auto generated from biolink-model.yaml by jsonldcontextgen.py version: 0.1.1\n    Generation date: 2023-02-09T23:59:23\n    Schema: Biolink-Model\n    metamodel version: 1.7.0\n    model version: 3.2.0\n    \n    id: https://w3id.org/biolink/biolink-model\n    description: Entity and association taxonomy and datamodel for life-sciences data\n    license: https://creativecommons.org/publicdomain/zero/1.0/\n    ",
    "@context": {
       "AGRKB": "https://www.alliancegenome.org/",
       "APO": {
@@ -444,13 +444,13 @@
          "@prefix": true
       },
       "UNII": "http://identifiers.org/unii/",
-      "UNIPROT.ISOFORM": "http://identifiers.org/uniprot.isoform/",
+      "UNIPROT.ISOFORM": "http://purl.uniprot.org/isoforms/",
       "UO-PROPERTY": "http://purl.obolibrary.org/obo/uo#",
       "UPHENO": {
          "@id": "http://purl.obolibrary.org/obo/UPHENO_",
          "@prefix": true
       },
-      "UniProtKB": "http://identifiers.org/uniprot/",
+      "UniProtKB": "http://purl.uniprot.org/uniprot/",
       "VANDF": "https://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/VANDF/",
       "VMC": "https://github.com/ga4gh/vr-spec/",
       "WB": "http://identifiers.org/wb/",
@@ -700,6 +700,14 @@
       },
       "category": {
          "@type": "@id"
+      },
+      "causal_mechanism_qualifier": {
+         "@context": {
+            "@vocab": "@null",
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         }
       },
       "caused_by": {
          "@type": "@id"
@@ -1446,6 +1454,9 @@
       "provider": {
          "@type": "@id"
       },
+      "publication_type": {
+         "@id": "dct:type"
+      },
       "publications": {
          "@type": "@id"
       },
@@ -1580,6 +1591,14 @@
       "subject": {
          "@type": "@id",
          "@id": "rdf:subject"
+      },
+      "subject_direction_qualifier": {
+         "@context": {
+            "@vocab": "@null",
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         }
       },
       "subject_location_in_text": {
          "@type": "xsd:integer"

@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: evidence_type
+# metamodel_version: 1.7.0# version: 3.2.0id: evidence_type
 schema_generating: true
 description: Class of evidence that supports an association
 display_name: evidence type
@@ -15,6 +15,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: name
   description: A human-readable name for an attribute or entity.
   display_name: name

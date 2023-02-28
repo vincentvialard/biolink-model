@@ -5,7 +5,7 @@ license: https://creativecommons.org/publicdomain/zero/1.0/
 
 # Version should be kept in sync with primary Git repository release tag
 
-version: 3.1.1
+version: 3.2.0
 
 
 ## ------------
@@ -138,6 +138,8 @@ prefixes:
   # resolvable Base URI, but we point to a pair of sensible web documents
   STY: 'http://purl.bioontology.org/ontology/STY/'
   UMLSSG: 'https://lhncbc.nlm.nih.gov/semanticnetwork/download/sg_archive/SemGroups-v04.txt'
+  UniProtKB: 'http://purl.uniprot.org/uniprot/'
+  UNIPROT.ISOFORM: 'http://purl.uniprot.org/isoforms/'
   VANDF: 'https://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/VANDF/'
   UO-PROPERTY: 'http://purl.obolibrary.org/obo/uo#'
   # The "Variation Modelling Collaboration" (VMC) is not (yet) a conventional namespace so we point to its Github repo
@@ -473,6 +475,7 @@ slots:
 
   id:
     identifier: true
+    domain: entity
     description: >-
       A unique identifier for an entity.
       Must be either a CURIE shorthand for a URI or a complete URI
@@ -496,10 +499,12 @@ slots:
 
   type:
     slot_uri: rdf:type
+    domain: entity
     exact_mappings:
       - AGRKB:soTermId
       - gff3:type
       - gpi:DB_Object_Type
+    multivalued: true
 
   category:
     is_a: type
@@ -524,18 +529,35 @@ slots:
     in_subset:
       - translator_minimal
 
+  publication type:
+    slot_uri: dct:type
+    description: >-
+      Ontology term for publication type may be drawn from
+      Dublin Core types (https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/),
+      FRBR-aligned Bibliographic Ontology (https://sparontologies.github.io/fabio/current/fabio.html),
+      the MESH publication types (https://www.nlm.nih.gov/mesh/pubtypes.html),
+      the Confederation of Open Access Repositories (COAR) Controlled Vocabulary for Resource Type Genres
+      (http://vocabularies.coar-repositories.org/documentation/resource_types/),
+      Wikidata (https://www.wikidata.org/wiki/Wikidata:Publication_types), or
+      equivalent publication type ontology. When a given publication type ontology term
+      is used within a given knowledge graph, then the CURIE identified term must be
+      documented in the graph as a concept node of biolink:category biolink:OntologyClass.
+    values_from: # Not sure which takes precedence, if any...
+    - dctypes
+    - fabio
+    - MESH_PUB
+    - COAR_RESOURCE
+    - WIKIDATA
+
   name:
     aliases: [ 'label', 'display name', 'title' ]
     description: >-
       A human-readable name for an attribute or entity.
+    domain: entity
     range: label type
     in_subset:
       - translator_minimal
       - samples
-    #
-    # linkML doesn't like this name slot to be "required: true".
-    # Besides, some entity nodes/attributes may not have names?
-    # required: true
     slot_uri: rdfs:label
     exact_mappings:
       - gff3:Name
@@ -1077,14 +1099,14 @@ slots:
     description: >-
       a biological population (general, study, cohort, etc.) with a specific
       set of characteristics to constrain an association.
-    is_a: association slot
+    is_a: qualifier
     range: population of individual organisms
 
   temporal context qualifier:
     description: >-
       a constraint of time placed upon the truth value of an association.
       for time intervales, use temporal interval qualifier.
-    is_a: association slot
+    is_a: qualifier
     range: time type
 
   temporal interval qualifier:
@@ -1116,7 +1138,7 @@ slots:
     range: boolean
 
   has chemical role:
-    is_a: node property
+    is_a: related to at concept level
     description: >-
       A role is particular behaviour which a chemical entity may exhibit.
     range: chemical role
@@ -1191,7 +1213,7 @@ slots:
   ## -------------------
 
   form or variant qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       A qualifier that composes with a core subject/object concept to define a specific type, variant,
@@ -1203,20 +1225,19 @@ slots:
       - value: late stage
       - value: severe
       - value: transplant
-      - value: chemical analong
+      - value: chemical analog
     notes: >-
       please see the ChemicalOrGeneOrGeneProductFormOrVariantEnum (below) for examples of 'form or variant qualifier'
       terms in the gene->chemical association space. 
       the qualifier ‘mutation’ combines with the core concept ‘Gene X’ to express the compose concept ‘Mutated forms of Gene X’.
-      the qualifier ‘Late Stage’ combines with a core concept of ‘Disease X’ to express the  more specific concept ‘Late Stage forms of Disease X’
-      the qualifier ‘Severe’ combines with a core concept of ‘Bleeding’ to express the  more specific concept ‘Severe forms of Bleeding’
-      the qualifier ‘Liver’ combines with a core concept of ‘Surgical Transplant’ to express the composed concept ‘Liver Transplant’
-      the qualifier ‘Recombinant’ combines with a core concept of ‘FLT1 Gene’ to express the composed concept ‘Recombinant forms of the FLT1 gene’
+      the qualifier ‘late stage’ combines with a core concept of ‘Disease X’ to express the  more specific concept ‘Late Stage forms of Disease X’
+      the qualifier ‘recombinant’ combines with a core concept of ‘FLT1 Gene’ to express the composed concept ‘Recombinant forms of the FLT1 gene’
       the qualifier ‘chemical analog’ combines with a core concept of ‘Ditiocarb’ to express the composed concept ‘analog forms of Ditiocarb’
-
+    in_subset:
+      - translator_minimal
 
   aspect qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       Composes with the core concept to describe new concepts of a different ontological type. e.g. a process in which
@@ -1234,14 +1255,16 @@ slots:
       the gene making the full subject a different ontological type.  
       the qualifier ‘expression’ combines with a core concept of ‘Gene X’ to express the composed concept ‘expression of Gene X’ (Gene → Biological Process)
       the qualifier ‘exposure’ combines with a core concept of ‘Chemical X’ to express the composed concept ‘exposure to Chemical X’ (Chemical → Exposure Process)
-      the qualifier ‘Activity’ combines with a core concept of ‘PPARG’ to express the concept ‘activity of PPARG’ (Gene → function/activity)
-      the qualifier ‘Emergency Department Visit’ combines with a core concept of ‘Disease X’ to express the concept ‘Emergency Department visits for Disease X’ (Disease → Clinical Event)
-      the qualifier ‘Infection’ combines with a core concept of ‘Giardia’ to express the concept ‘Infection with Giardia’ (Taxon → Biological / Pathological Process)
-      the qualifier ‘Severity’ combines with a core concept of ‘DILI’ to express the concept ‘the severity level of DILI’ (Disease → (intrinsic) Characteristic/Quality)
-      the qualifier ‘Abundance’ combines with a core concept of ‘BRCA2’ to express the concept ‘abundance of BRCA2’ (Gene → (extrinsic) characteristic/quality)
+      the qualifier ‘activity’ combines with a core concept of ‘PPARG’ to express the concept ‘activity of PPARG’ (Gene → function/activity)
+      the qualifier ‘emergency Department Visit’ combines with a core concept of ‘Disease X’ to express the concept ‘Emergency Department visits for Disease X’ (Disease → Clinical Event)
+      the qualifier ‘infection’ combines with a core concept of ‘Giardia’ to express the concept ‘Infection with Giardia’ (Taxon → Biological / Pathological Process)
+      the qualifier ‘severity’ combines with a core concept of ‘DILI’ to express the concept ‘the severity level of DILI’ (Disease → (intrinsic) Characteristic/Quality)
+      the qualifier ‘abundance’ combines with a core concept of ‘BRCA2’ to express the concept ‘abundance of BRCA2’ (Gene → (extrinsic) characteristic/quality)
+    in_subset:
+      - translator_minimal
 
   derivative qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       A qualifier that composes with a core subject/object  concept to describe something that is derived from the
@@ -1249,9 +1272,11 @@ slots:
       the composed concept ‘a metabolite of Chemical X’.
     examples:
       - value: metabolite
+    in_subset:
+      - translator_minimal
 
   part qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       defines a specific part/component of the core concept (used in cases there this specific part has no IRI we can
@@ -1259,29 +1284,30 @@ slots:
     examples:
       - value: polyA tail
       - value: upstream control region
+    in_subset:
+      - translator_minimal
 
   context qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       Restricts the setting/context/location where the core concept (or qualified core concept) resides or occurs.
     examples:
-      - value: cohort x
-      - value: blood
-      - value: gut microbiome
-    notes: >-
-      the context qualifier ‘hippocampus’ combines with a core concept of ‘neuron’ to express the composed concept ‘neuron in 
-      the hippocampus’. The species_context_qualifier applies taxonomic context, e.g. species-specific molecular activity
-
+      - value: cohort x (e.g. a specific population, referenced by an identifier)
+      - value: gut microbiome # OHMI:0000020
+    in_subset:
+      - translator_minimal
 
   direction qualifier:
-    is_a: association slot
+    is_a: qualifier
     abstract: true
     description: >-
       Composes with the core concept (+ aspect if provided) to describe a change in its direction or degree.
     notes: >-
       the qualifier ‘increased’ combines with a core concept of ‘Gene X’ and an aspect of ‘expression’ to express the composed concept ‘increased expression of Gene X’   
       the qualifier ‘decreased’ combines with a core concept of ‘Protein X’ and an aspect of ‘abundance’ to express the composed concept ‘decreased abundance of Protein X’
+    in_subset:
+      - translator_minimal
 
   mapped predicate:
     description: >-
@@ -1321,43 +1347,68 @@ slots:
 
   subject aspect qualifier:
     is_a: aspect qualifier
+    in_subset:
+      - translator_minimal
 
   subject form or variant qualifier:
     is_a: form or variant qualifier
+    in_subset:
+      - translator_minimal
 
   subject part qualifier:
     is_a: part qualifier
+    in_subset:
+      - translator_minimal
 
   subject derivative qualifier:
     is_a: derivative qualifier
+    in_subset:
+      - translator_minimal
 
   subject context qualifier:
     is_a: context qualifier
+    in_subset:
+      - translator_minimal
 
   subject direction qualifier:
     is_a: direction qualifier
+    range: DirectionQualifierEnum
+    in_subset:
+      - translator_minimal
 
   object aspect qualifier:
     is_a: aspect qualifier
+    in_subset:
+      - translator_minimal
 
   object form or variant qualifier:
     is_a: form or variant qualifier
+    in_subset:
+      - translator_minimal
 
   object part qualifier:
     is_a: part qualifier
+    in_subset:
+      - translator_minimal
 
   object derivative qualifier:
     is_a: derivative qualifier
+    in_subset:
+      - translator_minimal
 
   object context qualifier:
     is_a: context qualifier
+    in_subset:
+      - translator_minimal
 
   object direction qualifier:
     is_a: direction qualifier
     range: DirectionQualifierEnum
+    in_subset:
+      - translator_minimal
 
   qualified predicate:
-    is_a: association slot
+    is_a: qualifier
     description: >-
       Predicate to be used in an association when subject and object qualifiers are present and the full
       reading of the statement requires a qualification to the predicate in use in order to refine or 
@@ -1373,10 +1424,18 @@ slots:
       sense in the full statement reading  (because “Chemical X affects increased expression of Gene Y'' is not 
       what we mean to say here: it causes increased expression of Gene Y)
 
+  qualifier:
+    is_a: association slot
+    description: >- 
+      grouping slot for all qualifiers on an edge.  useful for testing compliance with association classes
+    in_subset:
+      - translator_minimal
 
   statement qualifier:
-    is_a: association slot
+    is_a: qualifier
     description: >-
+    in_subset:
+      - translator_minimal
 
   causal mechanism qualifier:
     is_a: statement qualifier
@@ -1384,16 +1443,27 @@ slots:
       A statement qualifier representing a type of molecular control mechanism through which an
       effect of a chemical on a gene or gene product is mediated (e.g. 'agonism', 'inhibition',
       'allosteric modulation', 'channel blocker')
+    range: CausalMechanismQualifierEnum
+    in_subset:
+      - translator_minimal
 
   anatomical context qualifier:
     is_a: statement qualifier
     description: >-
       A statement qualifier representing an anatomical location where an relationship expressed in an
-      association took place (can be a tissue, cell type, or subcellular location).
+      association took place (can be a tissue, cell type, or sub-cellular location).
     range: AnatomicalContextQualifierEnum
     notes: >-
-      Anatomical context values can be any term from UBERON. See AnatomicalContextQualifierEnum for more
-      details.
+      Anatomical context values can be any term from UBERON. For example, the context qualifier ‘cerebral cortext’ 
+      combines with a core concept of ‘neuron’ 
+      to express the composed concept ‘neuron in the cerebral cortext’. The species_context_qualifier applies 
+      taxonomic context, e.g. species-specific molecular activity.  Ontology CURIEs are expected as values 
+      here, the examples below are intended to help clarify the content of the CURIEs.
+    examples:
+      - value: blood # UBERON:0000178
+      - value: cerebral cortext # UBERON:0000956
+    in_subset:
+      - translator_minimal
 
   species context qualifier:
     is_a: statement qualifier
@@ -1401,6 +1471,14 @@ slots:
       A statement qualifier representing a taxonomic category of species in which a relationship
       expressed in an association took place.
     range: organism taxon
+    examples:
+      - value: zebrafish # NCBITaxon:7955
+      - value: human # NCBITaxon:9606
+    notes: >- 
+      Ontology CURIEs are expected as values
+      here, the examples below are intended to help clarify the content of the CURIEs.
+    in_subset:
+      - translator_minimal
 
   qualifiers:
     singular_name: qualifier
@@ -1414,31 +1492,39 @@ slots:
     range: ontology class
 
   frequency qualifier:
+    is_a: qualifier
     description: >-
       a qualifier used in a phenotypic association to state how frequent the phenotype is observed in the subject
-    is_a: association slot
     range: frequency value
+    in_subset:
+      - translator_minimal
 
   severity qualifier:
     description: >-
       a qualifier used in a phenotypic association to state
       how severe the phenotype is in the subject
-    is_a: association slot
+    is_a: qualifier
     range: severity value
+    in_subset:
+      - translator_minimal
 
   sex qualifier:
     description: >-
       a qualifier used in a phenotypic association to state whether
       the association is specific to a particular sex.
-    is_a: association slot
+    is_a: qualifier
     range: biological sex
+    in_subset:
+      - translator_minimal
 
   onset qualifier:
     description: >-
       a qualifier used in a phenotypic association to state
       when the phenotype appears is in the subject
-    is_a: association slot
+    is_a: qualifier
     range: onset
+    in_subset:
+      - translator_minimal
 
   clinical modifier qualifier:
     description: >-
@@ -1485,6 +1571,8 @@ slots:
     examples:
       - value: UBERON:0000069
         description: larval stage
+    in_subset:
+      - translator_minimal
 
   ## --------------------
   ## PREDICATES/RELATIONS
@@ -2151,16 +2239,9 @@ slots:
     in_subset:
       - translator_minimal
     symmetric: true
-    annotations:
-      canonical_predicate: true
+    mixin: true
     exact_mappings:
-      - RO:0002434
       - SEMMEDDB:INTERACTS_WITH
-    narrow_mappings:
-      # RO terms RTX mapped to 'biolink:related_to' but which imply a chemical interaction
-      - RO:0002103
-      - RO:0002120
-      - RO:0002130
     notes: >-
       please use a more specific child predicate of interacts with, either physically interacts with
       or genetically interacts with. 
@@ -2175,7 +2256,7 @@ slots:
     symmetric: true
     annotations:
       canonical_predicate: true
-    exact_mappings:
+    broad_mappings:
       - WIKIDATA_PROPERTY:P129
     close_mappings:
       - CHEMBL.MECHANISM:binding_agent
@@ -2185,13 +2266,14 @@ slots:
       - CHEMBL.MECHANISM:sequestering_agent
       - CHEMBL.MECHANISM:substrate
       - DRUGBANK:target
-
     narrow_mappings:
       # Defined more narrowly as "substance interaction", thus specific applies to a subclass entities
       - DRUGBANK:drug-interaction
       - FMA:adheres_to
       - NCIT:A7
       - PR:non-covalently_bound_to
+    mixins:
+      - interacts with
 
   directly physically interacts with:
     is_a: physically interacts with
@@ -2215,6 +2297,7 @@ slots:
       canonical_predicate: true
 
   binds:
+    deprecated: true
     is_a: directly physically interacts with
     description: >-
       A causal mechanism mediated by the direct contact between effector and target chemical or biomolecular entity, 
@@ -2486,27 +2569,28 @@ slots:
     is_a: affects
     description: >-
       A more specific form of affects, that implies the effect results from a biologically evolved control mechanism.
-      Gene-affects-gene relationships will (almost) always involve regulation.  Chemical-affects-gene relationships 
-      may in some cases be considered regulation (if the chemical is some endogenously produced signaling molecule 
-      created to execute a certain function/activity), but exogenous/environmental chemical-affects-gene relationships 
-      are usually not cases of regulation.
+      Gene-affects-gene relationships will (almost) always involve regulation.  Exogenous/environmental chemical-affects-gene relationships 
+      are not cases of regulation in this definition. Instead these would be captured using the 'affects' predicate, or
+      possibly one of the 'interacts with' predicates depending on the nature of the interaction.
     domain: physical essence or occurrent
     range: physical essence or occurrent
     annotations:
       canonical_predicate: true
-    close_mappings:
-      - RO:0002334
     exact_mappings:
-      - RO:0002211
-    narrow_mappings:
+      - RO:0002448
+    broad_mappings:
       # https://www.wikidata.org/wiki/Property:P128 - regulates (molecular biology)
       - WIKIDATA_PROPERTY:P128
       - CHEMBL.MECHANISM:modulator
       - RO:0002295
       - RO:0002332
-      - RO:0002211
       - RO:0002448
-      - WIKIDATA_PROPERTY:P128
+    notes: >-
+      The RO definition of 'directly regulates the activity of' is an exact_mapping here because 
+      it describes genetic regulation from the point of view of one genetic entity regulating another, as opposed to
+      "RO:0002211" which describes process to process regulation.
+    mixins:
+      - interacts with
 
   is regulated by:
     is_a: is affected by
@@ -4415,7 +4499,7 @@ slots:
     aliases: [ 'gene product sequence variation encoded by gene mutant', 'allelic variant of', 'gene product variant of gene product' ]
     description: holds between a sequence variant and a nucleic acid entity
     domain: sequence variant
-    range: nucleic acid entity
+    range: genomic entity
     annotations:
       canonical_predicate: true
     narrow_mappings:
@@ -4424,7 +4508,7 @@ slots:
   has sequence variant:
     is_a: is related at instance level to
     inverse: is sequence variant of
-    domain: nucleic acid entity
+    domain: genomic entity
     range: sequence variant
 
   is missense variant of:
@@ -4432,7 +4516,7 @@ slots:
     description: holds between a gene  and a sequence variant, such the sequence variant
       results in a different amino acid sequence but where the length is preserved.
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
     exact_mappings:
@@ -4440,7 +4524,7 @@ slots:
 
   has missense variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is missense variant of
 
@@ -4449,7 +4533,7 @@ slots:
     description: holds between a sequence variant and a gene, such the sequence variant
       is in the coding sequence of the gene, but results in the same amino acid sequence
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
     exact_mappings:
@@ -4457,7 +4541,7 @@ slots:
 
   has synonymous variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is synonymous variant of
     aliases: [ 'stop gained' ]
@@ -4467,7 +4551,7 @@ slots:
     description: holds between a sequence variant and a gene, such the sequence variant
       results in a premature stop codon
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
     broad_mappings:
@@ -4477,7 +4561,7 @@ slots:
 
   has nonsense variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is nonsense variant of
 
@@ -4487,7 +4571,7 @@ slots:
       causes a disruption of the translational reading frame, because the number of
       nucleotides inserted or deleted is not a multiple of three.
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
     exact_mappings:
@@ -4497,7 +4581,7 @@ slots:
   has frameshift variant:
     is_a: has sequence variant
     inverse: is frameshift variant of
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     aliases: [ 'splice region variant', 'splice acceptor variant', 'splice donor variant' ]
 
@@ -4506,7 +4590,7 @@ slots:
     description: holds between a sequence variant and a gene, such the sequence variant
       is in the canonical splice site of one of the gene's exons.
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
     exact_mappings:
@@ -4515,7 +4599,7 @@ slots:
 
   has splice site variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is splice site variant of
     aliases: [ 'downstream gene variant', 'upstream gene variant' ]
@@ -4525,13 +4609,13 @@ slots:
     description: holds between a sequence variant and a gene sequence that the variant
       is genomically close to.
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
 
   has nearby variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is nearby variant of
     aliases: [ 'intron variant', '3 prime UTR variant', '5 prime UTR variant', '5 prime UTR premature start codon gain variant', 'non coding transcript exon variant' ]
@@ -4541,13 +4625,13 @@ slots:
     description: holds between a sequence variant and a gene, where the variant does
       not affect the coding sequence
     domain: sequence variant
-    range: gene
+    range: genomic entity
     annotations:
       canonical_predicate: true
 
   has non coding variant:
     is_a: has sequence variant
-    domain: gene
+    domain: genomic entity
     range: sequence variant
     inverse: is non coding variant of
 
@@ -4823,6 +4907,7 @@ slots:
       connects an association to the subject of the association.
       For example, in a gene-to-phenotype association, the gene is subject and phenotype is object.
     required: true
+    domain: association
     range: named thing
     slot_uri: rdf:subject
     exact_mappings:
@@ -4835,6 +4920,7 @@ slots:
       connects an association to the object of the association.
       For example, in a gene-to-phenotype association, the gene is subject and phenotype is object.
     required: true
+    domain: association
     range: named thing
     local_names:
       ga4gh: descriptor
@@ -5615,7 +5701,7 @@ classes:
     slot_usage:
       category:
         required: true
-        pattern: '^biolink:\d+$'
+        pattern: '^biolink:[A-Z][A-Za-z]+$'
     exact_mappings:
       - BFO:0000001
       - WIKIDATA:Q35120
@@ -5968,26 +6054,8 @@ classes:
           the 'title' of the publication is generally recorded in the 'name'
           property (inherited from NamedThing). The field name 'title' is now also
           tagged as an acceptable alias for the node property 'name' (just in case).
-      type:
-        slot_uri: dct:type
+      publication type:
         required: true
-        description: >-
-          Ontology term for publication type may be drawn from
-          Dublin Core types (https://www.dublincore.org/specifications/dublin-core/dcmi-type-vocabulary/),
-          FRBR-aligned Bibliographic Ontology (https://sparontologies.github.io/fabio/current/fabio.html),
-          the MESH publication types (https://www.nlm.nih.gov/mesh/pubtypes.html),
-          the Confederation of Open Access Repositories (COAR) Controlled Vocabulary for Resource Type Genres
-          (http://vocabularies.coar-repositories.org/documentation/resource_types/),
-          Wikidata (https://www.wikidata.org/wiki/Wikidata:Publication_types), or
-          equivalent publication type ontology. When a given publication type ontology term
-          is used within a given knowledge graph, then the CURIE identified term must be
-          documented in the graph as a concept node of biolink:category biolink:OntologyClass.
-        values_from: # Not sure which takes precedence, if any...
-          - dctypes
-          - fabio
-          - MESH_PUB
-          - COAR_RESOURCE
-          - WIKIDATA
       pages:
         multivalued: true
         description: >-
@@ -7277,10 +7345,6 @@ classes:
       - symbol
       - synonym
       - xref
-    narrow_mappings:
-      - bioschemas:gene
-    broad_mappings:
-      - NCIT:C45822
     exact_mappings:
       - SO:0000704
       - SIO:010035
@@ -7306,7 +7370,13 @@ classes:
       - Xenbase
       - AspGD
     in_subset:
+      - translator_minimal
       - model_organism_database
+    narrow_mappings:
+      - bioschemas:gene
+    broad_mappings:
+      - NCIT:C45822
+
 
   gene product mixin:
     description: >-
@@ -9590,7 +9660,7 @@ classes:
       - predicate
       - object
     slots:
-      - sequence variant qualifier
+      - subject form or variant qualifier
     slot_usage:
       subject:
         range: gene or gene product
@@ -9598,6 +9668,10 @@ classes:
           A gene that has a role in modeling the disease. This may be
           a model organism ortholog of a known disease gene, or it may be
           a gene whose mutants recapitulate core features of the disease.
+      object:
+        range: disease
+      predicate:
+        subproperty_of: contributes to
 
   gene to expression site association:
     is_a: association
@@ -10107,14 +10181,18 @@ enums:
   ChemicalOrGeneOrGeneProductFormOrVariantEnum:
     permissible_values:
       genetic_variant_form:
-        is_a: modified form
-      mutant_form:
-        is_a: genetic variant form
+        is_a: modified_form
+      modified_form:
+      loss_of_function_variant_form:
+        is_a: genetic_variant_form
+      gain_of_function_variant_form:
+        is_a: genetic_variant_form
       polymorphic_form:
-        is_a: mutant form
+        is_a: genetic_variant_form
       snp_form:
-        is_a: polymorphic form
+        is_a: polymorphic_form
       analog_form:
+        is_a: modified_form
 
   GeneOrGeneProductOrChemicalPartQualifierEnum:
     permissible_values:
@@ -10141,7 +10219,6 @@ enums:
       synthesis:
         is_a: abundance
       degradation:
-        is_a: abundance # negate the direction qualifier necessary.
       cleavage:
         is_a: degradation
       hydrolysis:
@@ -10442,7 +10519,7 @@ enums:
     permissible_values:
       "inhalation":
       "oral":
-      "absorbtion_through_the_skin":
+      "absorption_through_the_skin":
       "intravenous_injection":
 
   FDAApprovalStatusEnum:

@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: clinical_modifier
+# metamodel_version: 1.7.0# version: 3.2.0id: clinical_modifier
 schema_generating: true
 description: Used to characterize and specify the phenotypic abnormalities defined
   in the phenotypic abnormality sub-ontology, with respect to severity, laterality,
@@ -13,6 +13,7 @@ fields:
   display_name: id
 - id: type
   display_name: type
+  cardinality: multi
 - id: description
   description: a human-readable description of an entity
   display_name: description

@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: organism_taxon_to_organism_taxon_specialization
+# metamodel_version: 1.7.0# version: 3.2.0id: organism_taxon_to_organism_taxon_specialization
 schema_generating: true
 description: 'A child-parent relationship between two taxa. For example: Homo sapiens
   subclass_of Homo'
@@ -81,6 +81,7 @@ fields:
 - id: type
   description: rdf:type of biolink:Association should be fixed at rdf:Statement
   display_name: association_type
+  cardinality: multi
 - id: category
   description: "Name of the high level ontology class in which this entity is categorized.\
     \ Corresponds to the label for the biolink entity type class.\n * In a neo4j database\

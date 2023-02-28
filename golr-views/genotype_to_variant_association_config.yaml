@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: genotype_to_variant_association
+# metamodel_version: 1.7.0# version: 3.2.0id: genotype_to_variant_association
 schema_generating: true
 description: Any association between a genotype and a sequence variant.
 display_name: genotype to variant association
@@ -80,6 +80,7 @@ fields:
 - id: type
   description: rdf:type of biolink:Association should be fixed at rdf:Statement
   display_name: association_type
+  cardinality: multi
 - id: category
   description: "Name of the high level ontology class in which this entity is categorized.\
     \ Corresponds to the label for the biolink entity type class.\n * In a neo4j database\

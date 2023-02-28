@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: polypeptide
+# metamodel_version: 1.7.0# version: 3.2.0id: polypeptide
 schema_generating: true
 description: A polypeptide is a molecular entity characterized by availability in
   protein databases of amino-acid-based sequence representations of its precise primary
@@ -18,6 +18,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: name
   description: A human-readable name for an attribute or entity.
   display_name: name

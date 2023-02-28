@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: information_content_entity_to_named_thing_association
+# metamodel_version: 1.7.0# version: 3.2.0id: information_content_entity_to_named_thing_association
 schema_generating: true
 description: association between a named thing and a information content entity where
   the specific context of the relationship between that named thing and the publication
@@ -87,6 +87,7 @@ fields:
 - id: type
   description: rdf:type of biolink:Association should be fixed at rdf:Statement
   display_name: association_type
+  cardinality: multi
 - id: category
   description: "Name of the high level ontology class in which this entity is categorized.\
     \ Corresponds to the label for the biolink entity type class.\n * In a neo4j database\

@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: chemical_affects_gene_association
+# metamodel_version: 1.7.0# version: 3.2.0id: chemical_affects_gene_association
 schema_generating: true
 description: Describes an effect that a chemical has on a gene or gene product (e.g.
   an impact of on its abundance, activity, localization, processing, expression, etc.)
@@ -81,6 +81,7 @@ fields:
 - id: type
   description: rdf:type of biolink:Association should be fixed at rdf:Statement
   display_name: association_type
+  cardinality: multi
 - id: category
   description: "Name of the high level ontology class in which this entity is categorized.\
     \ Corresponds to the label for the biolink entity type class.\n * In a neo4j database\
@@ -124,7 +125,7 @@ fields:
 - id: anatomical_context_qualifier
   description: A statement qualifier representing an anatomical location where an
     relationship expressed in an association took place (can be a tissue, cell type,
-    or subcellular location).
+    or sub-cellular location).
   display_name: chemical affects gene association_anatomical context qualifier
 - id: qualified_predicate
   description: "Predicate to be used in an association when subject and object qualifiers\

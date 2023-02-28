@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: severity_value
+# metamodel_version: 1.7.0# version: 3.2.0id: severity_value
 schema_generating: true
 description: describes the severity of a phenotypic feature or disease
 display_name: severity value
@@ -11,6 +11,7 @@ fields:
   display_name: id
 - id: type
   display_name: type
+  cardinality: multi
 - id: description
   description: a human-readable description of an entity
   display_name: description

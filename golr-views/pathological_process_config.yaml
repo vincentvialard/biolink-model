@@ -1,4 +1,4 @@
-# metamodel_version: 1.7.0# version: 3.1.1id: pathological_process
+# metamodel_version: 1.7.0# version: 3.2.0id: pathological_process
 schema_generating: true
 description: A biologic function or a process having an abnormal or deleterious effect
   at the subcellular, cellular, multicellular, or organismal level.
@@ -16,6 +16,7 @@ fields:
   display_name: iri
 - id: type
   display_name: type
+  cardinality: multi
 - id: name
   description: A human-readable name for an attribute or entity.
   display_name: name
